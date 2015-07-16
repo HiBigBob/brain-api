@@ -33,8 +33,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/api', routes);
+
+app.get('/setup', function(req, res) {
+
+  // create a sample user
+  var nick = new User({
+    name: 'Adrian Albert',
+    password: 'password'
+  });
+
+  // save the sample user
+  nick.save(function(err) {
+    if (err) throw err;
+
+    console.log('User saved successfully');
+    res.json({ success: true });
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:');
+    res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 
 module.exports = router;
