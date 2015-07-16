@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routesApi = require('./routes/api');
+var routesSetup = require('./routes/setup');
+
 var config = require('./config/config');
 
 var app = express();
@@ -18,12 +19,8 @@ mongoose.connect(config.database);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-  console.log("Ok");
+  console.log("Connected !");
 });
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -33,24 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', routes);
-
-app.get('/setup', function(req, res) {
-
-  // create a sample user
-  var nick = new User({
-    name: 'Adrian Albert',
-    password: 'password'
-  });
-
-  // save the sample user
-  nick.save(function(err) {
-    if (err) throw err;
-
-    console.log('User saved successfully');
-    res.json({ success: true });
-  });
-});
+app.use('/api', routesApi);
+app.use('/setup', routesSetup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
