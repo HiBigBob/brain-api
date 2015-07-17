@@ -5,7 +5,7 @@ var User   = require('../models/user');
 router.get('/', function(req, res, next) {
   // create the first user
   var john = new User({
-    name: 'John Doe',
+    username: 'John',
     password: 'password'
   });
 

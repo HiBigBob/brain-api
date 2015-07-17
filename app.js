@@ -5,16 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-var routesApiIndex = require('./routes/index');
-var routesApiUser = require('./routes/user');
-var routesSetup = require('./routes/setup');
+var jwt = require('jwt-simple');
 
 var config = require('./config/config');
+
+var jwtAuth = require('./lib/auth');
+var requireAuth = require('./lib/require');
 
 var app = express();
 var port = process.env.PORT || 8080;
 
+app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 mongoose.connect(config.database);
 
 var db = mongoose.connection;
@@ -32,12 +33,13 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', routesApiIndex);
-app.use('/api/users', routesApiUser);
-app.use('/setup', routesSetup);
+/**
+ * Load up the controllers
+ */
+var routing = require('./config/routing')
+routing.set(app)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -71,6 +73,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(port);
-
 
 module.exports = app;
