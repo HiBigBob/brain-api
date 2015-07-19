@@ -3,6 +3,7 @@ var user = require('../controllers/user');
 var setup = require('../controllers/setup');
 var token = require('../controllers/token');
 var task = require('../controllers/task');
+var list = require('../controllers/list');
 
 var jwtAuth = require('../lib/auth');
 var requireAuth = require('../lib/require');
@@ -16,4 +17,5 @@ module.exports.set = function(app) {
 	app.use('/api', index);
 	app.use('/api/user', user);
 	app.use('/api/tasks', task);
+	app.use('/api/lists', list);
 }
