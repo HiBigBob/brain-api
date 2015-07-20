@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
   john.lists.push(list);
 
   var task = new Task({
-    _creator: list._id,
+    listId: list._id,
     name: 'Call john',
     completed: false
   });
