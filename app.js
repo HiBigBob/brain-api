@@ -13,7 +13,7 @@ var jwtAuth = require('./lib/auth');
 var requireAuth = require('./lib/require');
 
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 mongoose.connect(config.database);
