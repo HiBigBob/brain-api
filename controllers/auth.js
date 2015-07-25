@@ -6,9 +6,9 @@ var moment = require('moment');
 var config = require('../config/config');
 
 router.post('/', function(req, res){
-  if (req.headers.username && req.headers.password) {
+  if (req.body.username && req.body.password) {
     // Fetch the appropriate user, if they exist
-    UserModel.findOne({ username: req.headers.username }, function(err, user) {
+    UserModel.findOne({ username: req.body.username }, function(err, user) {
       if (err) {
         res.status(401).json({ error: 'Authentication error' })
       }
@@ -26,6 +26,7 @@ router.post('/', function(req, res){
             config.secret
           );
           res.json({
+            username : user.username,
             token : token,
             expires : expires
           });
@@ -33,7 +34,7 @@ router.post('/', function(req, res){
     });
   } else {
     // No username provided, or invalid POST request. For simplicity, just return a 401
-    res.status(401).json({ error: 'Authentication error' })
+    res.status(401).json({ error: 'Authentication errors' })
   }
 });
 

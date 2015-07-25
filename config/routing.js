@@ -1,7 +1,7 @@
 var index = require('../controllers');
 var user = require('../controllers/user');
 var setup = require('../controllers/setup');
-var token = require('../controllers/token');
+var auth = require('../controllers/auth');
 var task = require('../controllers/task');
 var list = require('../controllers/list');
 
@@ -11,7 +11,7 @@ var requireAuth = require('../lib/require');
 module.exports.set = function(app) {
 	app.all('/api/*', [jwtAuth, requireAuth]);
 
-	app.use('/authenticate', token);
+	app.use('/authenticate', auth);
 	app.use('/setup', setup);
 
 	app.use('/api', index);
