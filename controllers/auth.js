@@ -8,7 +8,7 @@ var config = require('../config/config');
 router.post('/', function(req, res){
   if (req.body.username && req.body.password) {
     // Fetch the appropriate user, if they exist
-    UserModel.findOne({ username: req.body.username }, function(err, user) {
+    UserModel.findOne({ username: req.body.username }).populate('lists', '_id name').exec(function(err, user) {
       if (err) {
         res.status(401).json({ error: 'Authentication error' })
       }
@@ -25,8 +25,9 @@ router.post('/', function(req, res){
             },
             config.secret
           );
+          user.password = '';
           res.json({
-            username : user.username,
+            user : user,
             token : token,
             expires : expires
           });
