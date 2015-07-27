@@ -28,8 +28,10 @@ router.post('/', function(req, res){
           user.password = '';
           res.json({
             user : user,
-            token : token,
-            expires : expires
+            access_token : {
+              token : token,
+              expires : expires
+            }
           });
       }
     });
