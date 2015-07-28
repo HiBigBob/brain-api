@@ -12,19 +12,44 @@ router.get('/', function(req, res, next) {
   });
 
   var list = new List({
-    name: 'Todo',
-    _creator: john._id
+    name: 'To do',
+    userId: john._id
   });
 
-  john.lists.push(list);
-
-  var task = new Task({
+  var taskDo = new Task({
     listId: list._id,
     name: 'Call john',
     completed: false
   });
 
-  list.tasks.push(task);
+  var taskDo2 = new Task({
+    listId: list._id,
+    name: 'Learn EmberJs',
+    completed: false
+  });
+
+  list.tasks.push(taskDo);
+  list.tasks.push(taskDo2);
+
+  var list2 = new List({
+    name: 'To buy',
+    userId: john._id
+  });
+
+  var taskBuy = new Task({
+    listId: list2._id,
+    name: 'FullMetal Alchimist',
+    completed: false
+  });
+
+  var taskBuy2 = new Task({
+    listId: list2._id,
+    name: 'Vinland Saga',
+    completed: false
+  });
+
+  list2.tasks.push(taskBuy);
+  list2.tasks.push(taskBuy2);
 
   // save the first user
   john.save(function(err) {
@@ -39,9 +64,30 @@ router.get('/', function(req, res, next) {
   });
 
   // save the first task
-  task.save(function(err) {
+  list2.save(function(err) {
     if (err) console.log(err);
-    console.log('Task saved successfully');
+    console.log('List saved successfully');
+  });
+
+  taskDo.save(function(err) {
+    if (err) console.log(err);
+    console.log('TaskDo saved successfully');
+  });
+
+  taskDo2.save(function(err) {
+    if (err) console.log(err);
+    console.log('TaskDo2 saved successfully');
+  });
+
+  taskBuy.save(function(err) {
+    if (err) console.log(err);
+    console.log('TaskBuy saved successfully');
+  });
+
+  // save the first task
+  taskBuy2.save(function(err) {
+    if (err) console.log(err);
+    console.log('TaskBuy2 saved successfully');
     res.json({ success: true });
   });
 });
