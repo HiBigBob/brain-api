@@ -3,7 +3,9 @@ var router = express.Router();
 var List   = require('../models/list');
 
 router.get('/', function(req, res, next){
-  List.find({userId: req.user._id}, function(err, lists) {
+  List.find({userId: req.user._id})
+    .populate('tasks')
+    .exec(function (err, lists) {
     res.json(lists);
   })
 });
