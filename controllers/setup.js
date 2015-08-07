@@ -19,12 +19,14 @@ router.get('/', function(req, res, next) {
   var taskDo = new Task({
     listId: list._id,
     name: 'Call john',
+    description: 'To fix a meeting',
     completed: false
   });
 
   var taskDo2 = new Task({
     listId: list._id,
     name: 'Learn EmberJs',
+    description: 'To add it in my skill',
     completed: false
   });
 
@@ -39,12 +41,14 @@ router.get('/', function(req, res, next) {
   var taskBuy = new Task({
     listId: list2._id,
     name: 'FullMetal Alchimist',
+    description: 'To pass a good time',
     completed: false
   });
 
   var taskBuy2 = new Task({
     listId: list2._id,
     name: 'Vinland Saga',
+    description: 'To begin this serie',
     completed: false
   });
 
