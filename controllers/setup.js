@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User   = require('../models/user');
-var List   = require('../models/list');
+var Category   = require('../models/category');
 var Task   = require('../models/task');
 
 router.get('/', function(req, res, next) {
@@ -11,49 +11,47 @@ router.get('/', function(req, res, next) {
     password: 'password'
   });
 
-  var list = new List({
+  var category = new Category({
     name: 'To do',
     userId: john._id
   });
 
   var taskDo = new Task({
-    listId: list._id,
+    categoryId: category._id,
+    userId: john._id,
     name: 'Call john',
     description: 'To fix a meeting',
     completed: false
   });
 
   var taskDo2 = new Task({
-    listId: list._id,
+    categoryId: category._id,
+    userId: john._id,
     name: 'Learn EmberJs',
     description: 'To add it in my skill',
     completed: false
   });
 
-  list.tasks.push(taskDo);
-  list.tasks.push(taskDo2);
-
-  var list2 = new List({
+  var category2 = new Category({
     name: 'To buy',
     userId: john._id
   });
 
   var taskBuy = new Task({
-    listId: list2._id,
+    categoryId: category2._id,
+    userId: john._id,
     name: 'FullMetal Alchimist',
     description: 'To pass a good time',
     completed: false
   });
 
   var taskBuy2 = new Task({
-    listId: list2._id,
+    categoryId: category2._id,
+    userId: john._id,
     name: 'Vinland Saga',
     description: 'To begin this serie',
     completed: false
   });
-
-  list2.tasks.push(taskBuy);
-  list2.tasks.push(taskBuy2);
 
   // save the first user
   john.save(function(err) {
@@ -62,15 +60,15 @@ router.get('/', function(req, res, next) {
   });
 
   // save the first task
-  list.save(function(err) {
+  category.save(function(err) {
     if (err) console.log(err);
-    console.log('List saved successfully');
+    console.log('Category saved successfully');
   });
 
   // save the first task
-  list2.save(function(err) {
+  category2.save(function(err) {
     if (err) console.log(err);
-    console.log('List saved successfully');
+    console.log('Category saved successfully');
   });
 
   taskDo.save(function(err) {

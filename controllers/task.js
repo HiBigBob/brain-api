@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Task   = require('../models/task');
-var List   = require('../models/list');
+var Category   = require('../models/category');
 
 router.get('/', function(req, res, next){
   Task.find({}, function(err, tasks) {
@@ -24,31 +24,22 @@ router.post('/done', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-  if (!req.body || !req.body.name || !req.body.description || !req.body.listId) return next(new Error('No data provided.'));
+  if (!req.body || !req.body.name || !req.body.description || !req.body.categoryId) return next(new Error('No data provided.'));
 
-  List.findOne({_id: req.body.listId}, function(err, list) {
+  var task = new Task({
+    categoryId: req.body.categoryId,
+    userId: req.user._id,
+    name: req.body.name,
+    description: req.body.description,
+    completed: false
+  });
 
-    var task = new Task({
-      listId: list._id,
-      name: req.body.name,
-      description: req.body.description,
-      completed: false
-    });
+  task.save(function(err) {
+    if (err) console.log(err);
+    console.log('Task saved successfully');
+  });
 
-    list.tasks.push(task);
-
-    list.save(function(err) {
-      if (err) console.log(err);
-      console.log('List saved successfully');
-    });
-
-    task.save(function(err) {
-      if (err) console.log(err);
-      console.log('Task saved successfully');
-    });
-
-    res.json(task);
-  })
+  res.json(task);
 });
 
 router.post('/done/:task_id', function(req, res, next) {
