@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
   });
 
   var category = new Category({
-    name: 'To do',
+    name: 'Cart',
+    class: 'fa fa-shopping-cart fa-fw text-primary',
     userId: john._id
   });
 
@@ -33,7 +34,8 @@ router.get('/', function(req, res, next) {
   });
 
   var category2 = new Category({
-    name: 'To buy',
+    name: 'Call',
+    class: 'fa fa-mobile fa-fw text-success',
     userId: john._id
   });
 
