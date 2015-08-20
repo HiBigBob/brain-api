@@ -23,12 +23,12 @@ router.post('/add', function(req, res, next){
 });
 
 router.post('/:category_id', function(req, res, next) {
-  if (!req.body.name) return next(new Error('Param is missing.'));
-  var name = req.body.name;
-  Category.updateById(req.category._id, {$set: {name: name}}, function(error, count) {
+  if (!req.body.name && !req.body.class) return next(new Error('Param is missing.'));
+
+  Category.updateById(req.category._id, {$set: {name: req.body.name, class: req.body.class}}, function(error, count) {
     if (error) return next(error);
     if (count !==1) return next(new Error('Something went wrong.'));
-    console.info('Marked task %s with id=%s completed.', req.category.name, req.category._id);
+    console.info('Category Id=%s is updated.', req.category._id);
     res.redirect('/categories');
   })
 });
