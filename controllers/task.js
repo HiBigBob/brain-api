@@ -24,7 +24,7 @@ router.post('/done', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-  if (!req.body || !req.body.name || !req.body.description || !req.body.categoryId) return next(new Error('No data provided.'));
+  if (!req.body || !req.body.name || !req.body.categoryId) return next(new Error('No data provided.'));
 
   var task = new Task({
     categoryId: req.body.categoryId,
