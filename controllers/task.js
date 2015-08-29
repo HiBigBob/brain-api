@@ -37,9 +37,11 @@ router.post('/', function(req, res, next){
   task.save(function(err) {
     if (err) console.log(err);
     console.log('Task saved successfully');
-  });
 
-  res.json(task);
+    Task.find({}, function(err, tasks) {
+      res.json(tasks);
+    })
+  });
 });
 
 router.post('/done/:task_id', function(req, res, next) {
