@@ -7,6 +7,7 @@ module.exports = mongoose.model('Task', new Schema({
     name: String,
     description: String,
     createTime: { type: Date, default: Date.now },
+    deadLineTime: { type: Date, default: Date.now },
     completeTime: Date,
     completed: Boolean
 }));

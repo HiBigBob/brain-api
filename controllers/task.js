@@ -38,6 +38,7 @@ router.post('/', function(req, res, next){
     userId: req.user._id,
     name: req.body.name,
     description: req.body.description,
+    deadLineTime: req.body.date ? req.body.date : new Date(),
     completed: false
   });
 

@@ -11,6 +11,9 @@ router.get('/', function(req, res, next) {
     password: 'password'
   });
 
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 7);
+
   var category = new Category({
     name: 'Cart',
     class: 'fa fa-shopping-cart fa-fw text-primary',
@@ -22,6 +25,7 @@ router.get('/', function(req, res, next) {
     userId: john._id,
     name: 'Call john',
     description: 'To fix a meeting',
+    deadLineTime: tomorrow,
     completed: false
   });
 
@@ -30,6 +34,7 @@ router.get('/', function(req, res, next) {
     userId: john._id,
     name: 'Learn EmberJs',
     description: 'To add it in my skill',
+    deadLineTime: tomorrow,
     completed: false
   });
 
@@ -44,6 +49,7 @@ router.get('/', function(req, res, next) {
     userId: john._id,
     name: 'FullMetal Alchimist',
     description: 'To pass a good time',
+    deadLineTime: tomorrow,
     completed: false
   });
 
@@ -52,6 +58,7 @@ router.get('/', function(req, res, next) {
     userId: john._id,
     name: 'Vinland Saga',
     description: 'To begin this serie',
+    deadLineTime: tomorrow,
     completed: false
   });
 
