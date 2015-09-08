@@ -47,7 +47,7 @@ router.post('/', function(req, res, next){
     console.log('Task saved successfully');
   });
 
-  res.json(task);
+  res.status(200).json(task);
 });
 
 router.post('/done/:task_id', function(req, res, next) {
