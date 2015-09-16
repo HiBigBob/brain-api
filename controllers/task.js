@@ -26,7 +26,7 @@ router.post('/done', function(req, res, next) {
   }}, {multi: true}, function(error, count){
     if (error) return next(error);
     console.info('Marked %s task(s) completed.', count);
-    res.redirect('/tasks');
+    res.status(200);
   })
 });
 
